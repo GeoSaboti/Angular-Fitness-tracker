@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 // === Routing Module ===
 import {AppRoutingModule, routeableComponents} from './app-routing';
@@ -12,6 +14,7 @@ import { TrainingComponent } from './training/training.component';
 import { CurrentTrainingComponent } from './training/current-training/current-training.component';
 import { NewTrainingComponent } from './training/new-training/new-training.component';
 import { PassTrainingsComponent } from './training/pass-trainings/pass-trainings.component';
+import {MAT_DATE_LOCALE} from '@angular/material';
 
 
 @NgModule({
@@ -27,13 +30,17 @@ import { PassTrainingsComponent } from './training/pass-trainings/pass-trainings
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     // Angular Material Module,
     MaterialModule,
     //  Routing
-    AppRoutingModule
+    AppRoutingModule,
+    //  Flex layout module
+    FlexLayoutModule
 
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-CO'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
