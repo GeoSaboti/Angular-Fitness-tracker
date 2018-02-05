@@ -2,10 +2,7 @@
  *ngIf="!onGoingTraining"
 >
   <mat-tab label="New Excersise">
-    <app-new-training
-      (trainingStar)="onGoingTraining = true"
-    >
-    </app-new-training>
+    <app-new-training></app-new-training>
   </mat-tab>
   <mat-tab label="Past Excercises">
     <app-pass-trainings></app-pass-trainings>
@@ -13,6 +10,5 @@
 </mat-tab-group>
 <app-current-training
   *ngIf="onGoingTraining"
-  (trainingExit)="onGoingTraining = false"
 >
 </app-current-training>

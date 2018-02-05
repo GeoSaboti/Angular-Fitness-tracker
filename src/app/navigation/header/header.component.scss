@@ -17,3 +17,7 @@ a {
   display: inline-block;
   padding-left: 6px;
 }
+
+ul > li:last-child {
+  cursor: pointer;
+}
