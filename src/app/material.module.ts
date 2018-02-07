@@ -6,7 +6,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {
   MatDialogModule,
-  MatListModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule,
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule,
+  MatSortModule,
   MatTabsModule
 } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -35,7 +36,8 @@ import {MatTableModule} from '@angular/material/table';
     MatDialogModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +57,8 @@ import {MatTableModule} from '@angular/material/table';
     MatDialogModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
 })
 export class MaterialModule {}

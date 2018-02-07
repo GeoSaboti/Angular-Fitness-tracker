@@ -3,16 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 
 // === Routeable Components ===
 import {WelcomeComponent} from './training/welcome/welcome.component';
-import {SignupComponent} from './auth/signup/signup.component';
-import {LoginComponent} from './auth/login/login.component';
-import {TrainingComponent} from './training/training.component';
 import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
-  {path: 'signup', component: SignupComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'training', component: TrainingComponent, canActivate: [AuthGuard]},
-  {path: '', component: WelcomeComponent},
+  {path: 'training', loadChildren: './training/training.module#TrainingModule', canLoad: [AuthGuard]},
+  {path: '', component: WelcomeComponent}
 ];
 
 @NgModule({
@@ -27,8 +22,5 @@ const routes: Routes = [
 export class AppRoutingModule {}
 
 export const routeableComponents = [
-  WelcomeComponent,
-  SignupComponent,
-  LoginComponent,
-  TrainingComponent
+  WelcomeComponent
 ];

@@ -1,49 +1,41 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-
+import {environment} from '../environments/environment';
 // === Routing Module ===
+import {Routes} from '@angular/router';
 import {AppRoutingModule, routeableComponents} from './app-routing';
+import {AuthGuard} from './auth/auth.guard';
 
 //  === Components ==
 import { AppComponent } from './app.component';
-import { CurrentTrainingComponent } from './training/current-training/current-training.component';
-import { NewTrainingComponent } from './training/new-training/new-training.component';
-import { PassTrainingsComponent } from './training/pass-trainings/pass-trainings.component';
 import {MAT_DATE_LOCALE} from '@angular/material';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { StopTrainingComponent } from './training/current-training/stop-training.component';
 // === Services ===
 import {AuthService} from './auth/auth.service';
 import {TrainingService} from './training/training.service';
-
+import {UIService} from './shared/ui.service';
 import {AngularFireModule} from 'angularfire2';
+import {WelcomeComponent} from './training/welcome/welcome.component';
+import {AuthModule} from './auth/auth.module';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-import {AngularFireAuthModule} from 'angularfire2/auth';
-import {environment} from '../environments/environment';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PassTrainingsComponent,
     //  Routeable Components
-    routeableComponents,
+    // routeableComponents,
+    WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent,
-    StopTrainingComponent
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     // Angular Material Module,
     MaterialModule,
     //  Routing
@@ -51,13 +43,14 @@ import {environment} from '../environments/environment';
     //  Flex layout module
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
+    AuthModule,
+    AngularFirestoreModule
   ],
-  entryComponents: [StopTrainingComponent],
   providers: [
+    AuthGuard,
     AuthService,
     TrainingService,
+    UIService,
     {provide: MAT_DATE_LOCALE, useValue: 'es-CO'}
     ],
   bootstrap: [AppComponent]
