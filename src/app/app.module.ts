@@ -5,7 +5,6 @@ import {MaterialModule} from './material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {environment} from '../environments/environment';
 // === Routing Module ===
-import {Routes} from '@angular/router';
 import {AppRoutingModule, routeableComponents} from './app-routing';
 import {AuthGuard} from './auth/auth.guard';
 
@@ -22,7 +21,8 @@ import {AngularFireModule} from 'angularfire2';
 import {WelcomeComponent} from './training/welcome/welcome.component';
 import {AuthModule} from './auth/auth.module';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-
+import {StoreModule} from '@ngrx/store';
+import {reducers} from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     AuthGuard,

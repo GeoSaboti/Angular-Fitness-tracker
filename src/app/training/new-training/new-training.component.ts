@@ -1,36 +1,34 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TrainingService} from '../training.service';
 import {Excercise} from '../excercise.model';
 import {NgForm} from '@angular/forms';
-import {UIService} from '../../shared/ui.service';
 
-import {Subscription} from 'rxjs/Subscription';
+import {Store} from '@ngrx/store';
+import * as fromTraining from '../training.reducer';
+import {Observable} from 'rxjs/Observable';
+import * as Training from '../training.actions';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-new-training',
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.scss']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
+export class NewTrainingComponent implements OnInit {
 
-  excercises: Excercise[];
-  excerciseSubscription: Subscription;
+  excercises$: Observable<Excercise[]>;
 
-  isLoading: boolean;
-  private loadingSubs: Subscription;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private trainingService: TrainingService,
-    private uiService: UIService
+    private store: Store<fromTraining.State>
   ) {
-    this.isLoading = true;
   }
 
   ngOnInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe((isLoading: boolean) => {
-      this.isLoading = isLoading;
-    });
-    this.excerciseSubscription = this.trainingService.excercisesChange.subscribe((excercises => this.excercises = excercises));
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+    this.excercises$ = this.store.select(fromTraining.getAvailableExercises);
     this.fetchExercises();
   }
 
@@ -40,15 +38,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   onStartTraining(form: NgForm): void {
     this.trainingService.startExcercise(form.value.excercise);
-  }
-
-  ngOnDestroy() {
-    if (this.loadingSubs) {
-      this.loadingSubs.unsubscribe();
-    }
-    if (this.excerciseSubscription) {
-      this.excerciseSubscription.unsubscribe();
-    }
   }
 
 }
